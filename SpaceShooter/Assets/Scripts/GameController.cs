@@ -12,7 +12,9 @@ public float spawnWait;
 public float startWait;
 public float waveWait;
 public ParticleSystem ps;
+public ParticleSystem ps2;
 public float simulationSpeed; 
+public float time_elapsed;
 public AudioSource musicSource;
 public AudioClip musicClipOne;
 public AudioClip musicClipTwo;
@@ -37,6 +39,7 @@ restartText.text = "";
 gameOverText.text = "";
 winText.text = "";
 score = 0;
+time_elapsed = 0f;
 UpdateScore();
 StartCoroutine(SpawnWaves());
 }
@@ -92,9 +95,11 @@ ScoreText.text = "Points: " + score;
             winText.text = "YOU WIN! GAME CREATED BY VICTORIA TINSLEY";
             musicSource.clip = musicClipOne;
             musicSource.Play ();
-        var main = ps.main; //should this be here or in start?
-        main.simulationSpeed = 0.2f; //had main.simulationSpeed = simulationSpeed; but did not work
-        simulationSpeed = (Mathf.Lerp(0.2f, 15f, Time.deltaTime * 15));
+        time_elapsed = Time.deltaTime + time_elapsed;   
+        var main = ps.main; 
+        main.simulationSpeed = (Mathf.Lerp(1f, 15f, time_elapsed));
+       
+        
             restart = true;
            }
 }
