@@ -30,7 +30,7 @@ public int score;
 void Start()
 {
 
-    ps = GetComponent<ParticleSystem>();
+
 gameOver = false;
 restart = false;
 restartText.text = "";
@@ -92,9 +92,9 @@ ScoreText.text = "Points: " + score;
             winText.text = "YOU WIN! GAME CREATED BY VICTORIA TINSLEY";
             musicSource.clip = musicClipOne;
             musicSource.Play ();
-              var main = ps.main; //should this be here or in start?
+        var main = ps.main; //should this be here or in start?
         main.simulationSpeed = 0.2f; //had main.simulationSpeed = simulationSpeed; but did not work
-        simulationSpeed = (Mathf.Lerp(0.2f, 1f, Time.deltaTime * 5));
+        simulationSpeed = (Mathf.Lerp(0.2f, 15f, Time.deltaTime * 15));
             restart = true;
            }
 }
