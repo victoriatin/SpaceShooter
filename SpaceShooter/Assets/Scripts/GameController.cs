@@ -11,6 +11,12 @@ public int hazardCount;
 public float spawnWait;
 public float startWait;
 public float waveWait;
+public ParticleSystem ps;
+public float simulationSpeed; 
+public AudioSource musicSource;
+public AudioClip musicClipOne;
+public AudioClip musicClipTwo;
+
 
 public Text ScoreText;
 public Text restartText;
@@ -19,10 +25,12 @@ public Text winText;
 private bool gameOver;
 private bool restart;
 
-private int score;
+public int score;
 
 void Start()
 {
+
+    ps = GetComponent<ParticleSystem>();
 gameOver = false;
 restart = false;
 restartText.text = "";
@@ -81,8 +89,12 @@ void UpdateScore()
 ScoreText.text = "Points: " + score;
   if (score >= 100)
           {
-            winText.text = "GAME CREATED BY VICTORIA TINSLEY";
-            gameOver = true;
+            winText.text = "YOU WIN! GAME CREATED BY VICTORIA TINSLEY";
+            musicSource.clip = musicClipOne;
+            musicSource.Play ();
+              var main = ps.main; //should this be here or in start?
+        main.simulationSpeed = 0.2f; //had main.simulationSpeed = simulationSpeed; but did not work
+        simulationSpeed = (Mathf.Lerp(0.2f, 1f, Time.deltaTime * 5));
             restart = true;
            }
 }
@@ -90,6 +102,8 @@ ScoreText.text = "Points: " + score;
  public void GameOver ()
 {
     gameOverText.text = "GAME CREATED BY VICTORIA TINSLEY";
+    musicSource.clip = musicClipTwo;
+    musicSource.Play ();
     gameOver = true;
 }
 }
