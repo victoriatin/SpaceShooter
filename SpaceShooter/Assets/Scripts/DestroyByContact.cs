@@ -30,12 +30,20 @@ public class DestroyByContact : MonoBehaviour
         {
         Instantiate(explosion, transform.position, transform.rotation);
         }
+        if (other.tag == "Enemy")
+        {
+        Destroy (other.gameObject);
+        }
         if (other.tag == "Player"){
+            gameController.SubLive (); //-1 life on collision
+            if (gameController.isDead == true) //0 lives = player ship explodes
+            {
             Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
             gameController.GameOver ();
+            Destroy(other.gameObject);
+            }
         }
       gameController.AddScore (scoreValue);
-        Destroy(other.gameObject);
         Destroy(gameObject);
     }
 }

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
      public Transform shotSpawn;
      public float fireRate;
      public AudioSource musicSource;
+     
     private float nextFire;
      private Rigidbody rb;
 

@@ -24,10 +24,13 @@ public Text ScoreText;
 public Text restartText;
 public Text gameOverText;
 public Text winText;
+public Text livesText;
 private bool gameOver;
 private bool restart;
 
 public int score;
+private int playerHealth;
+public bool isDead;
 
 void Start()
 {
@@ -42,6 +45,8 @@ score = 0;
 time_elapsed = 0f;
 UpdateScore();
 StartCoroutine(SpawnWaves());
+playerHealth = 3;
+isDead = false;
 }
 
 void Update ()
@@ -53,6 +58,17 @@ void Update ()
             SceneManager.LoadScene("SampleScene");
         }
     }
+
+    if (score >= 100)
+          {
+       
+        time_elapsed = Time.deltaTime + time_elapsed;   
+        var main = ps.main;
+        var main2 = ps2.main; 
+        main.simulationSpeed = (Mathf.Lerp(1f, 15f, time_elapsed));
+        main2.simulationSpeed = (Mathf.Lerp(1f, 15f, time_elapsed));
+          }
+          
     if (Input.GetKey("escape"))
      Application.Quit();
 
@@ -95,15 +111,23 @@ ScoreText.text = "Points: " + score;
             winText.text = "YOU WIN! GAME CREATED BY VICTORIA TINSLEY";
             musicSource.clip = musicClipOne;
             musicSource.Play ();
-        time_elapsed = Time.deltaTime + time_elapsed;   
-        var main = ps.main; 
-        main.simulationSpeed = (Mathf.Lerp(1f, 15f, time_elapsed));
-       
-        
+            gameOver = true;
             restart = true;
            }
 }
-
+public void SubLive()
+{
+    playerHealth--;
+    UpdateLives();
+        if (playerHealth <= 0)
+        {
+            isDead = true;
+        }
+}
+void UpdateLives()
+{
+    livesText.text = "Lives: " + playerHealth;
+}
  public void GameOver ()
 {
     gameOverText.text = "GAME CREATED BY VICTORIA TINSLEY";
